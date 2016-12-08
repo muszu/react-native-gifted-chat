@@ -52,6 +52,16 @@ const styles = {
       borderRadius: 18,
     },
   }),
+  center: StyleSheet.create({
+    container: {
+      justifyContent: 'center',
+    },
+    image: {
+      height: 36,
+      width: 36,
+      borderRadius: 18,
+    },
+  }),
   right: StyleSheet.create({
     container: {
       marginLeft: 8,
@@ -78,7 +88,7 @@ Avatar.defaultProps = {
 };
 
 Avatar.propTypes = {
-  position: React.PropTypes.oneOf(['left', 'right']),
+  position: React.PropTypes.oneOf(['left', 'center', 'right']),
   currentMessage: React.PropTypes.object,
   nextMessage: React.PropTypes.object,
   containerStyle: View.propTypes.style,
