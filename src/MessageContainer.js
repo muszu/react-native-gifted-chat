@@ -146,6 +146,13 @@ export default class MessageContainer extends React.Component {
   }
 
   render() {
+    if (!this.props.isEmpty && !this.props.messages.length) {
+      return (
+        <View ref='container' style={{flex:1, justifyContent: 'center', alignItems: 'center'}}>
+          {this.props.renderLoading && this.props.renderLoading()}
+        </View>
+      );
+    }
     return (
       <View ref='container' style={{flex:1}}>
         <ListView
