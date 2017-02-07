@@ -51,8 +51,14 @@ class GiftedChat extends React.Component {
     this._locale = 'en';
     this._messages = [];
 
+    //Get almost correct props to speed up initialization
+    this.setMaxHeight(props.height);
     this.state = {
-      isInitialized: false, // initialization will calculate maxHeight before rendering the chat
+      // isInitialized: false, // initialization will calculate maxHeight before rendering the chat
+      isInitialized: true,
+      text: '',
+      composerHeight: MIN_COMPOSER_HEIGHT,
+      messagesContainerHeight: this.prepareMessagesContainerHeight(this.getMaxHeight() - this.getMinInputToolbarHeight()),
     };
 
     this.onTouchStart = this.onTouchStart.bind(this);
@@ -527,6 +533,7 @@ GiftedChat.propTypes = {
   user: React.PropTypes.object,
   bottomOffset: React.PropTypes.number,
   isLoadingEarlier: React.PropTypes.bool,
+  height: React.PropTypes.number.isRequired,
 };
 
 export {
