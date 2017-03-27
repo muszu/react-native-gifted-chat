@@ -55,7 +55,7 @@ class GiftedChat extends React.Component {
     this.setMaxHeight(props.height);
     this.state = {
       // isInitialized: false, // initialization will calculate maxHeight before rendering the chat
-      isInitialized: true,
+      isInitialized: false,
       text: '',
       composerHeight: MIN_COMPOSER_HEIGHT,
       messagesContainerHeight: this.prepareMessagesContainerHeight(this.getMaxHeight() - this.getMinInputToolbarHeight()),
@@ -440,23 +440,26 @@ class GiftedChat extends React.Component {
       );
     }
     return (
-      <View
-        style={styles.container}
-        onLayout={(e) => {
-          const layout = e.nativeEvent.layout;
-          this.setMaxHeight(layout.height);
-          InteractionManager.runAfterInteractions(() => {
-            this.setState({
-              isInitialized: true,
-              text: '',
-              composerHeight: MIN_COMPOSER_HEIGHT,
-              messagesContainerHeight: this.prepareMessagesContainerHeight(this.getMaxHeight() - this.getMinInputToolbarHeight()),
+      <ActionSheet ref={component => this._actionSheetRef = component}>
+        <View
+          style={styles.container}
+          onLayout={(e) => {
+            const layout = e.nativeEvent.layout;
+            this.setMaxHeight(layout.height);
+            InteractionManager.runAfterInteractions(() => {
+              this.setState({
+                isInitialized: true,
+                text: '',
+                composerHeight: MIN_COMPOSER_HEIGHT,
+                messagesContainerHeight: this.prepareMessagesContainerHeight(this.getMaxHeight() - this.getMinInputToolbarHeight()),
+              });
             });
-          });
-        }}
-      >
-        {this.renderLoading()}
-      </View>
+          }}
+        >
+          {this.renderMessages()}
+          {this.renderInputToolbar()}
+        </View>
+      </ActionSheet>
     );
   }
 }
